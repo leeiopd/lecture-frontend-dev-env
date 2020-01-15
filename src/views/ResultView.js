@@ -1,37 +1,39 @@
 import View from "./View.js";
 
 // TODO: 파일을 로딩할수 있도록 웹팩 로더 설정을 추가하세요 (file-loader나 image-loader)
+
+// 디폴트 이미지 설정
 import defaultImage from "../images/default-image.jpg";
 
 export default class ResultView extends View {
-  constructor(el) {
-    super(el);
+	constructor(el) {
+		super(el);
 
-    this.messages = {
-      NO_RESULT: "검색 결과가 없습니다"
-    };
-  }
+		this.messages = {
+			NO_RESULT: "검색 결과가 없습니다"
+		};
+	}
 
-  mount(data = []) {
-    this.el.innerHTML = `<div class="ResultView">
+	mount(data = []) {
+		this.el.innerHTML = `<div class="ResultView">
       ${data.length ? this.getSearchResultsHtml(data) : this.messages.NO_RESULT}
     </div>`;
-    this.show();
-  }
+		this.show();
+	}
 
-  getSearchResultsHtml(data) {
-    return (
-      data.reduce((html, item) => {
-        html += this.getSearchItemHtml(item);
-        return html;
-      }, "<ul>") + "</ul>"
-    );
-  }
+	getSearchResultsHtml(data) {
+		return (
+			data.reduce((html, item) => {
+				html += this.getSearchItemHtml(item);
+				return html;
+			}, "<ul>") + "</ul>"
+		);
+	}
 
-  getSearchItemHtml(item) {
-    return `<li>
+	getSearchItemHtml(item) {
+		return `<li>
       <img src="${item.image}" onerror="this.src='${defaultImage}'"/>
       <p>${item.name}</p>
     </li>`;
-  }
+	}
 }
